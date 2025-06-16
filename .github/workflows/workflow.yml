@@ -1,0 +1,8 @@
+name: workflow.yml
+on:
+  workflow_call:
+
+jobs:
+  Echo:
+    - name: Echo owner
+      run: echo "${{ github.event_owner}}
