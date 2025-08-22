@@ -8,7 +8,7 @@ on:
           type: string
       label:
           description: label triggering the workflow
-          required: false
+          required: true
           type: string
       pull_request:
           description: previous workflow context
