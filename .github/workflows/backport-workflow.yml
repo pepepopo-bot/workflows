@@ -110,7 +110,7 @@ jobs:
         ACTION: ${{ inputs.action }}
         LABEL: ${{ inputs.label }}
         PR_JSON: ${{ inputs.pull_request }}
-        BACKPORT_BRANCH: backport/pr-${{ JSON.parse(process.env.PR_JSON).number }}-${{ matrix.target }}
+        BACKPORT_BRANCH: backport/pr-${{ fromJSON(inputs.pull_request).number }}-${{ matrix.target }}
         BACKPORT_TARGET: ${{ matrix.target }}
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
