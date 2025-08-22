@@ -107,14 +107,17 @@ jobs:
       if: ${{ !steps.create-branch.outputs.conflict }}
       uses: actions/github-script@v7
       env:
-        BACKPORT_BRANCH: backport/pr-${{ fromJSON(inputs.pull_request).number }}-${{ matrix.target }}
+        ACTION: ${{ inputs.action }}
+        LABEL: ${{ inputs.label }}
+        PR_JSON: ${{ inputs.pull_request }}
+        BACKPORT_BRANCH: backport/pr-${{ fromJSON(process.env.PR_JSON).number }}-${{ matrix.target }}
         BACKPORT_TARGET: ${{ matrix.target }}
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
           const { repo, owner } = context.repo;
           await github.rest.pulls.create({
-            title: `Backport PR #${fromJSON(inputs.pull_request).number} to ${process.env.BACKPORT_TARGET}`,
+            title: `Backport PR #${fromJSON(process.env.PR_JSON).number} to ${process.env.BACKPORT_TARGET}`,
             owner,
             repo,
             head: process.env.BACKPORT_BRANCH,
