@@ -17,7 +17,6 @@ on:
 
 jobs:
   prepare:
-    if: ${{ fromJSON(inputs.pull_request).merged }}
     runs-on: ubuntu-latest
     steps:
       - name: Prepare parameters
@@ -26,7 +25,7 @@ jobs:
         env:
           EVENT: ${{ inputs.event }}
           LABEL: ${{ inputs.label }}
-          PR_JSON: ${{ inputs.pull_request }}
+          PULL_REQUEST: ${{ inputs.pull_request }}
         with:
           script: |
             const event = process.env.EVENT;
@@ -38,7 +37,7 @@ jobs:
                 targets = [label.replace("backport-", "")];
               }
             } else if (event === "closed") {
-              const pr = JSON.parse(process.env.PR_JSON);
+              const pr = JSON.parse(process.env.PULL_REQUEST);
               const labels = pr.labels.map(l => l.name);
               targets = labels
                 .filter(l => l.startsWith("backport-"))
