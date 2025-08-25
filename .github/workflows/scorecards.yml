@@ -1,10 +1,9 @@
 name: Scorecard supply-chain security
 on:
   workflow_call:
-    inputs:
-      gihub_token:
+    secrets:
+      token:
         required: true
-        type: string
 jobs:
   analysis:
     name: Scorecard analysis
