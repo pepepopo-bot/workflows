@@ -114,5 +114,5 @@ jobs:
               repo,
               head: process.env.BACKPORT_BRANCH,
               base: process.env.BACKPORT_TARGET,
-              body: 'This PR is auto-generated as a backport of #${process.env.PR_NUMBER}.'
+              body: `This PR is auto-generated as a backport of #${process.env.PR_NUMBER}.`
             });
